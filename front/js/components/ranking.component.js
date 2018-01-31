@@ -27,8 +27,8 @@ Ranking.prototype.init = function() {
 
 Ranking.prototype.update = function(numbers) {
     numbers.forEach((number) => {const element = this.numbers.find((item) => item.id === number.id);
-    element.count++;
-});
+        element.count++;
+    });
     this.numbers.sort((a, b) => a.count < b.count);
     this.render();
 };
@@ -37,11 +37,10 @@ Ranking.prototype.render = function() {
     const container = this.getDOMElement();
     container.innerHTML= '';
 
-    this.numbers.forEach(function(number) {
+    this.numbers.forEach((number) => {
         const listElement = document.createElement('li');
         listElement.classList.add('list-group-item');
-        listElement.innerHTML = number.id;
-
+        listElement.innerHTML = `${number.id} <span>(Display ${number.count} time${number.count !== 1 ? 's' : ''})</span>`;
         container.appendChild(listElement);
     });
 };
