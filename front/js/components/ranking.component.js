@@ -1,6 +1,7 @@
 function Ranking(selector) {
   Component.call(this, selector);
   this.numbers = [];
+  this.count = 0;
 }
 
 Ranking.prototype = Object.create(Component.prototype);

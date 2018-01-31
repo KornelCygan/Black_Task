@@ -6,32 +6,29 @@ function Random(selector) {
 Random.prototype = Object.create(Component.prototype);
 Random.constructor = Random;
 
-Random.prototype.init = function() {
-    const self = this;
-
-    setInterval( function() {
+Random.prototype.getRandomNumbers = function (){
+    return new Promise(function(resolve, reject){
         axios.get('http://localhost:3000/random-numbers')
             .then(function(response) {
-                console.log(response);
                 self.numbers = response.data.data.map(function(number) {
                     return {
                         id: number
-                    }
+                    };
                 });
 
-                self.render();
+                resolve(self.numbers);
             })
             .catch(function(error) {
                 console.error(error);
+                reject(new Error('Something happened!'));
             });
-    },10000)
-
+    });
 };
 
-Random.prototype.render = function() {
+Random.prototype.render = function(numbers) {
     const container = this.getDOMElement();
 
-    this.numbers.forEach(function(number) {
+    numbers.forEach(function(number) {
         const listElement = document.createElement('li');
         listElement.classList.add('list-group-item');
         listElement.innerHTML = number.id;
