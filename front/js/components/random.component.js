@@ -9,8 +9,8 @@ Random.constructor = Random;
 Random.prototype.getRandomNumbers = function (){
     return new Promise(function(resolve, reject){
         axios.get('http://localhost:3000/random-numbers')
-            .then(function(response) {
-                self.numbers = response.data.data.map(function(number) {
+            .then((response) => {
+                self.numbers = response.data.data.map((number) => {
                     return {
                         id: number
                     };
@@ -18,7 +18,7 @@ Random.prototype.getRandomNumbers = function (){
 
                 resolve(self.numbers);
             })
-            .catch(function(error) {
+            .catch((error) => {
                 console.error(error);
                 reject(new Error('Something happened!'));
             });
@@ -28,7 +28,7 @@ Random.prototype.getRandomNumbers = function (){
 Random.prototype.render = function(numbers) {
     const container = this.getDOMElement();
 
-    numbers.forEach(function(number) {
+    numbers.forEach((number) => {
         const listElement = document.createElement('li');
         listElement.classList.add('list-group-item');
         listElement.innerHTML = number.id;
